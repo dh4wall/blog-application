@@ -27,6 +27,25 @@ router.post('/', async (req, res) => {
   }
 });
 
+// PUT /posts/:id - update a post by ID
+router.put('/:id', async (req, res) => {
+  const { title, content } = req.body;
+  if (!title || !content) {
+    return res.status(400).json({ message: 'Title and content are required.' });
+  }
+  try {
+    const updated = await Post.findByIdAndUpdate(
+      req.params.id,
+      { title, content },
+      { new: true, runValidators: true }
+    );
+    if (!updated) return res.status(404).json({ message: 'Post not found.' });
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+});
+
 // DELETE /posts/:id - delete a post by ID
 router.delete('/:id', async (req, res) => {
   try {
