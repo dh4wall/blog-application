@@ -21,19 +21,14 @@ app.use('/posts', postRoutes);
   res.send('Blog API is running...');
 }); */
 
-// Serve Vite build (dist)
+//-----------comment them if we need to use 2 vm
+//if only one vm uncomment these (Vite builds to 'dist/', NOT 'build/')
 
+// app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-
-// -----------comment these if using 2 separate VMs (backend VM + frontend VM)
-// If using 1 VM: uncomment these AND run 'npm run build' in frontend first
-// NOTE: Vite builds to 'dist/', NOT 'build/' like CRA
-
-app.use(express.static(path.join(__dirname, "../frontend/dist")));
-
-app.use((req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/dist", "index.html"));
-});
+// app.use((req, res) => {
+//   res.sendFile(path.join(__dirname, "../frontend/dist", "index.html"));
+// });
 
 // Connect to MongoDB and start server
 mongoose
